@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDAO">
+
+    <resultMap id="all" type="Album">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="teacher_id" property="teacher_id"/>
+        <result column="broadcaster" property="broadcaster"/>
+        <result column="count" property="count"/>
+        <result column="date" property="date"/>
+        <result column="info" property="info"/>
+        <result column="score" property="score"/>
+        <result column="image" property="image"/>
+        <result column="oldName" property="oldName"/>
+        <collection property="children" ofType="Section">
+            <id column="sid" property="id"/>
+            <result column="sname" property="name"/>
+            <result column="url" property="url"/>
+            <result column="size" property="size"/>
+            <result column="album_id" property="album_id"/>
+            <result column="sdate" property="date"/>
+            <result column="time" property="time"/>
+        </collection>
+    </resultMap>
+    <select id="queryAll" resultMap="all">
+       select a.id,a.name,a.teacher_id,a.broadcaster,a.count,a.date,a.info,a.score,a.image,a.oldName,
+              s.id sid,s.name sname,s.url,s.size,s.album_id,s.date sdate,s.time
+       from album a
+       left join section  s
+       on s.album_id=a.id
+       limit #{start},#{rows}
+    </select>
+    <select id="queryById" parameterType="String" resultType="Album">
+       select a.id,a.name,a.teacher_id,a.broadcaster,a.count,a.date,a.info,a.score,a.image,a.oldName
+       from album a
+       where id=#{id}
+    </select>
+    <insert id="insert" parameterType="Album">
+        insert into album (id,name,teacher_id,broadcaster,count,date,info,score,image,oldName)
+        values(#{id},#{name},#{teacher_id},#{broadcaster},#{count},#{date},#{info},#{score},#{image},#{oldName})
+    </insert>
+    <delete id="delete" parameterType="String">
+        delete from album where id=#{id}
+    </delete>
+    <update id="update" parameterType="Album">
+        update album set  count=#{count} where id=#{id}
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserMapDAO">
+
+    <select id="queryMan" resultType="UserMap">
+        select s.pro name,count(*) value
+        from (select pro from c_user where sex=1) s
+        group by s.pro
+    </select>
+    <select id="queryWomen" resultType="UserMap">
+        select s.pro name,count(*) value
+        from (select pro from c_user where sex=0) s
+        group by s.pro
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDAO">
+
+    <select id="queryUserByAccount" parameterType="String" resultType="User">
+       select id,account,password,name,dharmaName,sex,pro,city,image,sign,teacher_id,status,date
+       from c_user
+       where account=#{account}
+    </select>
+
+    <select id="queryByRandom" resultType="User">
+       select id,account,password,name,dharmaName,sex,pro,city,image,sign,teacher_id,status,date
+       from c_user
+       where id !=#{uid}
+       ORDER BY RAND() LIMIT 5
+    </select>
+
+
+    <select id="queryAllUsers" resultType="User">
+        select id,account,password,name,dharmaName,sex,pro,city,image,sign,teacher_id,status,date
+       from c_user
+    </select>
+
+    <select id="queryUserById" parameterType="String" resultType="User">
+       select id,account,password,name,dharmaName,sex,pro,city,image,sign,teacher_id,status,date
+       from c_user
+       where id=#{id}
+    </select>
+
+    <insert id="regist" parameterType="User" >
+        insert into c_user values(#{id},#{account},#{password},#{name},#{dharmaName},#{sex},#{pro},#{city},#{image},#{sign},#{teacher_id},#{status},#{date},)
+    </insert>
+
+    <update id="freeze" parameterType="String">
+        update c_user set  status=1 where id=#{id}
+    </update>
+
+    <update id="unFreeze" parameterType="String">
+        update c_user set  status=0 where id=#{id}
+    </update>
+    <update id="modify" parameterType="User">
+        update c_user
+        <set>
+            <if test="password!=null">
+                password=#{password,jdbcType=VARCHAR},
+            </if>
+            <if test="dharmaName!=null">
+                dharmaName=#{dharmaName,jdbcType=VARCHAR},
+            </if>
+            <if test="name!=null">
+                name=#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex!=null">
+                sex=#{sex,jdbcType=boolean},
+            </if>
+            <if test="pro!=null">
+                pro=#{pro,jdbcType=VARCHAR},
+            </if>
+            <if test="city!=null">
+                city=#{city,jdbcType=VARCHAR},
+            </if>
+            <if test="sign!=null">
+                sign=#{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="image!=null">
+                image=#{image,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+    </update>
+
+   
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

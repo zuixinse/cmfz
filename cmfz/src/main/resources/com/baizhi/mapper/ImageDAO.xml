@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ImageDAO">
+
+    <select id="queryAll" resultType="Image">
+       select id,title,date,url,status,intro,oldName
+       from image
+       limit #{start},#{rows}
+    </select>
+    <select id="queryById" parameterType="int" resultType="Image">
+       select id,title,date,url,status,intro,oldName
+       from image
+       where id=#{id}
+    </select>
+    <insert id="insert" parameterType="Image">
+        insert into image (title,url,status,date,intro,oldName) values(#{title},#{url},#{status},#{date},#{intro},#{oldName})
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete from image where id=#{id}
+    </delete>
+    <update id="update" parameterType="Image">
+        update image set  status=#{status} where id=#{id}
+    </update>
+
+
+
+   
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
